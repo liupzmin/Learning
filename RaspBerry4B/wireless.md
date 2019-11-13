@@ -6,7 +6,7 @@
 
 > Server = https://mirrors.ustc.edu.cn/archlinuxarm/$arch/$repo
 
-## check endian
+## 3. check endian
 
 ```c
 #include <sys/utsname.h>
@@ -44,7 +44,7 @@ int main()
 
 ```
 
-## Wireless network configuration
+## 4. Wireless network configuration
 
 references: [Wireless network configuration](https://wiki.archlinux.org/index.php/Wireless_network_configuration_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87))
 
@@ -54,7 +54,7 @@ references: [Wireless network configuration](https://wiki.archlinux.org/index.ph
 
 3.  systemctl enable netctl-auto@wlan0.service（重启自动连接）
 
-## 自动发送ip
+## 5. 自动发送ip
 
 **server:**
 
@@ -98,7 +98,7 @@ while True:
 udpCliSock.close()
 ```
 
-## set timer
+## 6. set timer
 
 1. check timer
 
