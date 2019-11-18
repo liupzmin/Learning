@@ -70,6 +70,6 @@
     // use x
     ```
 
-    7. 对于首字母缩写词（`initialisms`、`acronyms` ），大小写敏感要保持一致，不要混合
+7. 对于首字母缩写词（`initialisms`、`acronyms` ），大小写敏感要保持一致，不要混合
 
-        ** For example, "URL" should appear as "URL" or "url" (as in "urlPony", or "URLPony"), never as "Url". As an example: ServeHTTP not ServeHttp. **
+    **For example, "URL" should appear as "URL" or "url" (as in "urlPony", or "URLPony"), never as "Url". As an example: ServeHTTP not ServeHttp.**
