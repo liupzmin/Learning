@@ -8,12 +8,24 @@
 
 3. 用户态切换到内核态的方式，（1）系统调用 （2）异步硬件中断。（暂不确定是否还有其它方式），与进程上下文中进入内核代码不同的是，中断上下文无权访问地址空间，因为中断发生时cpu上的进程可能与中断无关
 
-4. 内核代码的执行方式（1）上一条所说的sysytem call、中断、进程切换（三种都是上下文切换） （2） 一些特殊的`内核线程`,跟普通线程一样，可被调度，可睡眠，可以有各种用途，比如帮调度器在CPU上分配进程。内核线程不与任何用户空间线程相关联，也无权访问用户空间，ps 那些带方括号的就是
+    `《Linux性能优化实战》中09篇-怎么理解Linux软中断`论述了硬中断和软中断，软中断由内核线程来完成
+
+    [Microprocessor - 8086 Interrupts](https://www.tutorialspoint.com/microprocessor/microprocessor_8086_interrupts.htm) `详细论述了中断的产生与处理过程，对于我来说最想知道的就是中断由硬件产生，然后CPU接到中断事件，执行完当前指令，开始保存CS和IP的值到stack，加载特定的地址到CS和IP寄存器中开始执行中断处理程序`
+
+    Linux Kernel Lab 中的 [Interrupts](https://linux-kernel-labs.github.io/master/lectures/interrupts.html#lecture-objectives) 也有专门的描述。
+
+4. 什么情况下会执行内核代码？（1）上一条所说的sysytem call、中断、进/线程切换（三种都涉及CPU上下文切换） （2） 一些特殊的`内核线程`,跟普通线程一样，可被调度，可睡眠，可以有各种用途，比如帮调度器在CPU上分配进程、`处理软中断`。内核线程不与任何用户空间线程相关联，也无权访问用户空间，ps 那些带方括号的就是
+
+5. 正在执行用户态指令的CPU是如何知道时间片用完了？
+
+    ```
+    电脑上有个硬件设备叫做中断控制器，而CPU上若干个引脚，中断控制器的输出引脚会和CPU的输入引脚链接起来，如果发生中断，对应引脚会收到信号。CPU在执行完一个指令后就会去检查引脚上是否有信号来，如果有就去处理信号（也就是中断函数）。中断函数是提前准备好的（系统启动时），cpu收到信号就去执行。这些流程都是硬件完成的，我们只需要遵循规则就可以了。所以在收到信号和信号处理函数执行之间，是CPU硬件在进行衔接处理。
+    
+    有人可能会疑惑CPU每次执行完指令都去检测引脚信号会不会导致性能问题？实际上不会，这些都是硬件电路完成的，这个检测逻辑处理速度基本就是电信号传递速度，而目前CPU已经很小了，电信号那点传播距离所耗费的时间基本可以忽略。
+
+    ```
 
 **以下是查阅记录：**
-
-- 
-
 
 - [OS: does the process scheduler runs in separate process](https://stackoverflow.com/a/11769982/9337614)
 - [How does the kernel scheduler know how to pre-empt a process?](https://unix.stackexchange.com/a/457586)
