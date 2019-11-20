@@ -176,6 +176,6 @@
 
     > Don't pass pointers as function arguments just to save a few bytes. If a function refers to its argument x only as *x throughout, then the argument shouldn't be a pointer. Common instances of this include passing a pointer to a string (*string) or a pointer to an interface value (*io.Reader). In both cases the value itself is a fixed size and can be passed directly. This advice does not apply to large structs, or even small structs that might grow.
 
-    **不要为了节省几个字节而将指针作为函数参数传递。如果一个函数始终只引用它的参数x作为*x，那么这个参数不应该是指针。这种情况的常见实例包括传递一个指向字符串的指针(*string)或一个指向接口值的指针(*io.Reader)。在这两种情况下，值本身是固定大小，可以直接传递。这个建议不适用于大型结构，甚至可能增长的小型结构。**
+    **不要为了节省几个字节而将指针作为函数参数传递。如果一个函数始终只引用它的参数x作为\*x，那么这个参数不应该是指针。这种情况的常见实例包括传递一个指向字符串的指针(\*string)或一个指向接口值的指针(\*io.Reader)。在这两种情况下，值本身是固定大小，可以直接传递。这个建议不适用于大型结构，甚至可能增长的小型结构。**
 
 12. 接收器的名字要简短，不要使用`me`，`this`，`self`这些泛型名称，不需要具有描述性，且每个方法名称一致
