@@ -44,9 +44,10 @@
     ```go
     if err != nil {
 	    // error handling
-	return // or continue, etc.
+	    return // or continue, etc.
     }
-        // normal code
+
+    // normal code
     ```
 
     如果 `if` 里有初始化语句：
@@ -54,7 +55,7 @@
     ```go
     if x, err := f(); err != nil {
 	    // error handling
-	return
+	    return
     } else {
 	    // use x
     }
