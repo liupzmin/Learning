@@ -179,3 +179,37 @@
     **不要为了节省几个字节而将指针作为函数参数传递。如果一个函数始终只引用它的参数x作为\*x，那么这个参数不应该是指针。这种情况的常见实例包括传递一个指向字符串的指针(\*string)或一个指向接口值的指针(\*io.Reader)。在这两种情况下，值本身是固定大小，可以直接传递。这个建议不适用于大型结构，甚至可能增长的小型结构。**
 
 12. 接收器的名字要简短，不要使用`me`，`this`，`self`这些泛型名称，不需要具有描述性，且每个方法名称一致
+
+13. 关于接收器的类型是用指针还是用值，对于新手可能有些难，建议不知道的时候用指针，但有些时候用值效率会高一些，比如一些小的不会变的 `struct` ，或者基础类型的 `value`，一些指导如下：
+
+    - **If the receiver is a map, func or chan, don't use a pointer to them. If the receiver is a slice and the method doesn't reslice or reallocate the slice, don't use a pointer to it.**
+
+    - **If the method needs to mutate the receiver, the receiver must be a pointer.(应该是接第一条，map、func、chan不使用pointer，方法不改变 slice 不使用 pointer ，但改变了就要是用 pointer ，struct 也一样)**
+
+    - **If the receiver is a struct that contains a sync.Mutex or similar synchronizing field, the receiver must be a pointer to avoid copying.（如果不用指针，同步原语就不起作用了）**
+
+    - **If the receiver is a large struct or array, a pointer receiver is more efficient. How large is large? Assume it's equivalent to passing all its elements as arguments to the method. If that feels too large, it's also too large for the receiver.（如果接收器体量太大，用指针效果会高，涉及到copy的内存开销问题，但是这个例子举的我还是不知道 How large is large.）**
+
+    - **If the receiver is a struct, array or slice and any of its elements is a pointer to something that might be mutating, prefer a pointer receiver, as it will make the intention more clear to the reader.（如果这些复合结构里的成员有 pointer 的话，那么久都用 pointer 吧。）**
+
+    - **If the receiver is a small array or struct that is naturally a value type (for instance, something like the time.Time type), with no mutable fields and no pointers, or is just a simple basic type such as int or string, a value receiver makes sense. A value receiver can reduce the amount of garbage that can be generated; if a value is passed to a value method, an on-stack copy can be used instead of allocating on the heap. (The compiler tries to be smart about avoiding this allocation, but it can't always succeed.) Don't choose a value receiver type for this reason without profiling first.（这里论值接收器的好处， 它能显著的减少垃圾生成的数量， 因为值作为copy传入方法的时候，会在协程栈上分配，而不是在堆上，栈上的管理就很简单了，不用担心垃圾，函数调用完栈帧就自动出栈了，不会永久停留在内存里，而堆上的就需要自己管理，也是gc的活动场，当然go的编译器会探测一些变量看看适不适合在栈上分配，如果条件合适，比如没有特殊的引用，函数内的变量仅在函数内部使用，那么会优化其在栈上分配，这就是内存逃逸，但这并不总是奏效。所以值接收器有其好处，但是不要为了这点选择值接收器，而忽略了上面说的那些。）**
+
+    - **最后，如果还是搞不清，那就用指针吧。**
+
+14. Synchronous Functions
+
+**Prefer synchronous functions - functions which return their results directly or finish any callbacks or channel ops before returning - over asynchronous ones.**
+
+**Synchronous functions keep goroutines localized within a call, making it easier to reason about their lifetimes and avoid leaks and data races. They're also easier to test: the caller can pass an input and check the output without the need for polling or synchronization.**
+
+**If callers need more concurrency, they can add it easily by calling the function from a separate goroutine. But it is quite difficult - sometimes impossible - to remove unnecessary concurrency at the caller side.**
+
+不是很理解，更偏爱同步函数，而不是异步函数，但是程序执行不就是函数么，调用者如何保证自己是同步的？我理解是要少写异步的，在不得不并发的地方再异步。
+
+15. Variable Names
+
+**Variable names in Go should be short rather than long. This is especially true for local variables with limited scope. Prefer c to lineCount. Prefer i to sliceIndex.**
+
+**The basic rule: the further from its declaration that a name is used, the more descriptive the name must be. For a method receiver, one or two letters is sufficient. Common variables such as loop indices and readers can be a single letter (i, r). More unusual things and global variables need more descriptive names.**
+
+变量名就是要短小，像接收器和循环体内的变量要小，规则是，变量离声明越远越需要更多的描述信息，更多的常见的或者全局变量要多一些描述。
