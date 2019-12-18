@@ -31,11 +31,12 @@ func main() {
 		app        = kingpin.New("pod", "A command-line delete pods in k8s.")
 		kubeconfig = app.Flag("kubeconfig", "(optional) absolute path to the kubeconfig file").Short('f').Default(filepath.Join(home, ".kube", "config")).String()
 		namespace  = app.Flag("namespace", "(optional) the k8s namespace.").Short('n').Default("default").String()
+		label      = app.Flag("label", "(optional) Selector (label query) to filter on, not including uninitialized ones, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2).").Short('l').String()
 
 		list   = app.Command("list", "List all pods in the namespace.")
 		delete = app.Command("delete", "Delete all pods in the namesapce.")
 	)
-
+	app.Version("Version: 0.1")
 	cmd := kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	clientset, err := getClient(*kubeconfig)
@@ -43,11 +44,17 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Get client error:  %s.\n", err.Error())
 	}
 
+	var option metav1.ListOptions
+
+	if *label != "" {
+		option.LabelSelector = *label
+	}
+
 	switch cmd {
 	// list pods
 	case list.FullCommand():
 
-		pods, err := clientset.CoreV1().Pods(*namespace).List(metav1.ListOptions{})
+		pods, err := clientset.CoreV1().Pods(*namespace).List(option)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "List pods error:  %s.\n", err.Error())
 		}
@@ -63,7 +70,7 @@ func main() {
 	case delete.FullCommand():
 
 		fmt.Printf("delete pods in namesapce: %s \n", *namespace)
-		err = clientset.CoreV1().Pods(*namespace).DeleteCollection(&metav1.DeleteOptions{}, metav1.ListOptions{})
+		err = clientset.CoreV1().Pods(*namespace).DeleteCollection(&metav1.DeleteOptions{}, option)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Delete pods error:  %s.\n", err.Error())
 		}
