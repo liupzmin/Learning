@@ -1,0 +1,7 @@
+- name: deploy ccts-business-center
+  hosts: ccts-business-center
+  remote_user: ec2-user
+
+  roles:
+    - ccts-business-center
+    - ccts-business-center2

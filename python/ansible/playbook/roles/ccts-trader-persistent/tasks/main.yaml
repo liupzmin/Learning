@@ -1,0 +1,4 @@
+- name: Copy ccts-trader-persistent
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-trader-persistent
+    dest: /home/ec2-user

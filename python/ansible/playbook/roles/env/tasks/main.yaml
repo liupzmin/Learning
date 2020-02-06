@@ -1,0 +1,7 @@
+- name: populate /home/ec2-user/.bashrc
+  lineinfile:
+    dest: "/home/ec2-user/.bashrc"
+    state: present
+    regexp: "^{{ item.key }}="
+    line: "{{ item.key }}={{ item.value}}"
+  with_items: "{{ os_environment }}"

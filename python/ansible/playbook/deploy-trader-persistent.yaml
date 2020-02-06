@@ -1,0 +1,6 @@
+- name: deploy ccts-trader-persistent
+  hosts: ccts-trader-persistent
+  remote_user: root
+
+  roles:
+    - ccts-trader-persistent

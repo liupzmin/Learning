@@ -1,0 +1,4 @@
+- name: Copy ccts-match-engine
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-match-engine
+    dest: /home/ec2-user

@@ -1,0 +1,60 @@
+- name: deploy ccts-risk-engine
+  hosts: ccts-risk-engine
+  remote_user: root
+
+  roles:
+    - ccts-risk-engine
+
+- name: deploy ccts-data-center
+  hosts: ccts-data-center
+  remote_user: root
+
+  roles:
+    - ccts-data-center
+
+- name: deploy ccts-assets-persistent
+  hosts: ccts-assets-persistent
+  remote_user: root
+
+  roles:
+    - ccts-assets-persistent
+
+
+- name: deploy ccts-trader-persistent
+  hosts: ccts-trader-persistent
+  remote_user: root
+
+  roles:
+    - ccts-trader-persistent
+
+- name: deploy ccts-quotation-calculate-unit
+  hosts: ccts-quotation-calculate-unit
+  remote_user: root
+
+  roles:
+    - ccts-quotation-calculate-unit
+
+
+- name: deploy ccts-quotation-dayline & kline
+  hosts: ccts-quotation-dayline
+  remote_user: root
+
+  roles:
+    - ccts-quotation-dayline
+    - ccts-quotation-kline
+
+
+- name: deploy ccts-quotation-spot-price
+  hosts: ccts-quotation-spot-price
+  remote_user: root
+
+  roles:
+    - ccts-quotation-spot-price
+
+
+- name: deploy ccts-quotation-gateway
+  hosts: ccts-quotation-gateway
+  remote_user: root
+
+  roles:
+    - ccts-quotation-gateway

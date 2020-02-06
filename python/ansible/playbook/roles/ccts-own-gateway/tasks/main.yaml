@@ -1,0 +1,4 @@
+- name: Copy ccts-own-gateway
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-own-gateway
+    dest: /home/ec2-user

@@ -1,0 +1,4 @@
+- name: Copy ccts-risk-engine
+  copy:
+    src: /home/ec2-user/ccts-code/risk-engine
+    dest: /home/ec2-user

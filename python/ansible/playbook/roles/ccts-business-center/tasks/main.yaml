@@ -1,0 +1,4 @@
+- name: Copy ccts-business-center
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-business-center
+    dest: /home/ec2-user

@@ -1,0 +1,4 @@
+- name: copy jdk
+  unarchive:
+    src: jdk1.8.0_45.tar.gz 
+    dest: /home/ec2-user

@@ -1,0 +1,6 @@
+- name: deploy ccts-risk-engine
+  hosts: ccts-risk-engine
+  remote_user: ec2-user
+
+  roles:
+    - ccts-risk-engine

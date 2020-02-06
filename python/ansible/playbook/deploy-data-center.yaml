@@ -1,0 +1,6 @@
+- name: deploy ccts-data-center
+  hosts: ccts-data-center
+  remote_user: root
+
+  roles:
+    - ccts-data-center

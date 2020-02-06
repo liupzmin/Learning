@@ -1,0 +1,4 @@
+- name: Copy ccts-quotation-gateway
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-quotation-gateway
+    dest: /home/ec2-user

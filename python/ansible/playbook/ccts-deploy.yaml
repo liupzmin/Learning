@@ -1,0 +1,89 @@
+- name: deploy background
+  hosts: background
+  remote_user: ec2-user
+  
+  roles:
+    - background
+
+- name: deploy ccts-business-center
+  hosts: ccts-business-center
+  remote_user: ec2-user
+
+  roles:
+    - ccts-business-center
+
+- name: deploy ccts-own-gateway
+  hosts: ccts-own-gateway
+  remote_user: ec2-user
+
+  roles:
+   - ccts-own-gateway
+
+- name: deploy ccts-match-engine
+  hosts: ccts-match-engine
+  remote_user: ec2-user
+
+  roles:
+    - ccts-match-engine
+
+
+- name: deploy ccts-risk-engine
+  hosts: ccts-risk-engine
+  remote_user: ec2-user
+
+  roles:
+    - ccts-risk-engine
+
+- name: deploy ccts-data-center
+  hosts: ccts-data-center
+  remote_user: ec2-user
+
+  roles:
+    - ccts-data-center
+
+- name: deploy ccts-assets-persistent
+  hosts: ccts-assets-persistent
+  remote_user: ec2-user
+
+  roles:
+    - ccts-assets-persistent
+
+
+- name: deploy ccts-trader-persistent
+  hosts: ccts-trader-persistent
+  remote_user: ec2-user
+
+  roles:
+    - ccts-trader-persistent
+
+- name: deploy ccts-quotation-calculate-unit
+  hosts: ccts-quotation-calculate-unit
+  remote_user: ec2-user
+
+  roles:
+    - ccts-quotation-calculate-unit
+
+
+- name: deploy ccts-quotation-dayline & kline
+  hosts: ccts-quotation-dayline
+  remote_user: ec2-user
+
+  roles:
+    - ccts-quotation-dayline
+    - ccts-quotation-kline
+
+
+- name: deploy ccts-quotation-spot-price
+  hosts: ccts-quotation-spot-price
+  remote_user: ec2-user
+
+  roles:
+    - ccts-quotation-spot-price
+
+
+- name: deploy ccts-quotation-gateway
+  hosts: ccts-quotation-gateway
+  remote_user: ec2-user
+
+  roles:
+    - ccts-quotation-gateway

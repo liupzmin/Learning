@@ -1,0 +1,4 @@
+- name: Copy ccts-quotation-kline
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-quotation-kline
+    dest: /home/ec2-user

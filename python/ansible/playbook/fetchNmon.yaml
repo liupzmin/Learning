@@ -1,0 +1,7 @@
+- name: get all nmon
+  hosts: all
+  fetch:
+    src: /root/nmon_dist
+    dest: /root/nmon_dist/mach-{{ inventory_hostname }}
+    flat: yes  
+

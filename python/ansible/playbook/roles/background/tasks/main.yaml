@@ -1,0 +1,17 @@
+- name: copy background
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: '/home/ec2-user/ccts-code/ccts-cms', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-sms-relay', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-mail-relay', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-authority-center', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-market-future', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-account-notification', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-customer-center', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-assets-center', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-clearing', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-system-timing', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-trading-status', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-assets-proxy-out', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-assets-proxy-in', dest: '/home/ec2-user' }
+    - { src: '/home/ec2-user/ccts-code/ccts-system-manager', dest: '/home/ec2-user' }

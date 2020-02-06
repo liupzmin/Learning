@@ -1,0 +1,6 @@
+- name: deploy ccts-match-engine
+  hosts: ccts-match-engine
+  remote_user: root
+
+  roles:
+    - ccts-match-engine

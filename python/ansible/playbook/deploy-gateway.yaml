@@ -1,0 +1,6 @@
+- name: deploy ccts-own-gateway
+  hosts: ccts-own-gateway
+  remote_user: root
+
+  roles:
+    - ccts-own-gateway

@@ -1,0 +1,6 @@
+- name: install and start redis
+  hosts: redis
+  remote_user: ec2-user
+  
+  roles:
+   - redis

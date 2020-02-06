@@ -1,0 +1,13 @@
+- name: copy redis
+  unarchive:
+    src: redis.tar.gz 
+    dest: /home/ec2-user
+
+- name: add a vm.overcommit_memory setting at the end of the sysctl.conf
+  remote_user: root
+  sysctl: name=vm.overcommit_memory value=1 state=present reload=yes
+
+- name: run script
+  shell:
+    cmd: sh start-master.sh
+    chdir: /home/ec2-user/redis/bin

@@ -1,0 +1,4 @@
+- name: Copy ccts-quotation-dayline
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-quotation-dayline
+    dest: /home/ec2-user

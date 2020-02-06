@@ -1,0 +1,4 @@
+- name: Copy ccts-data-center
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-data-center
+    dest: /home/ec2-user

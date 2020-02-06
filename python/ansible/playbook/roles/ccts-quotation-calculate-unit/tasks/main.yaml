@@ -1,0 +1,4 @@
+- name: Copy ccts-quotation-calculate-unit
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-quotation-calculate-unit
+    dest: /home/ec2-user

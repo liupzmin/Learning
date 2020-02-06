@@ -1,0 +1,6 @@
+- name: deploy ccts-assets-persistent
+  hosts: ccts-assets-persistent
+  remote_user: root
+
+  roles:
+    - ccts-assets-persistent

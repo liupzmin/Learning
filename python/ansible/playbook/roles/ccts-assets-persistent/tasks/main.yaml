@@ -1,0 +1,4 @@
+- name: Copy ccts-assets-persistent
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-assets-persistent
+    dest: /home/ec2-user

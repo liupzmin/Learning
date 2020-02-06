@@ -1,0 +1,14 @@
+- name: apply jdk & env
+  hosts: all
+  remote_user: root
+  
+  roles:
+    - jdk
+    - env
+
+- name: install and start redis
+  hosts: redis
+  remote_user: root
+  
+  roles:
+   - redis

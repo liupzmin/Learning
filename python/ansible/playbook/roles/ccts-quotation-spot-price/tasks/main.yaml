@@ -1,0 +1,4 @@
+- name: Copy ccts-quotation-spot-price
+  copy:
+    src: /home/ec2-user/ccts-code/ccts-quotation-spot-price
+    dest: /home/ec2-user
