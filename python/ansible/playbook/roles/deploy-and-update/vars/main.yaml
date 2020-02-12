@@ -1,0 +1,5 @@
+date: "{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}-{{ ansible_date_time.minute }}-{{ ansible_date_time.second }}" 
+programe: "test-code"
+remote_code_dir: "/root"
+remote_backup_dir: "/root/backup-test"
+src_code_dir: "/root/ccts-code"

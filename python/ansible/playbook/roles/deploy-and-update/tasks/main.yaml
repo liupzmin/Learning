@@ -1,0 +1,49 @@
+- name: Check if code  diretory exists
+  stat:
+    path: "{{ remote_code_dir }}/{{ programe }}"
+  register: p
+
+- debug:
+    msg: "Code Path exists and is a directory"
+  when: p.stat.isdir is defined and p.stat.isdir
+
+- name: Create backup  directory if it does not exist
+  file:
+    path: "{{ remote_backup_dir }}/{{ date }}"
+    state: directory
+    mode: '0755'
+  when: p.stat.isdir is defined and p.stat.isdir
+
+- name: Backup code directory if it exists 
+  shell:
+    cmd: cp -rp {{ programe }} "{{ remote_backup_dir }}/{{ date }}"
+    chdir: "{{ remote_code_dir }}"
+  when: p.stat.isdir is defined and p.stat.isdir
+
+- name: Check if lib  diretory exists
+  stat:
+    path: "{{ remote_code_dir }}/{{ programe }}/lib"
+  register: l
+
+- debug:
+    msg: "lib Path exists and is a directory"
+  when: l.stat.isdir is defined and l.stat.isdir
+
+- name: Find jars in lib 
+  find:
+    paths: "{{ remote_code_dir }}/{{ programe }}/lib"
+    patterns: '*.jar'
+  register: found_files
+  when: l.stat.isdir is defined and l.stat.isdir
+
+- name: Delete jars
+  file:
+    path: '{{ item.path }}'
+    state: absent
+  with_items: '{{ found_files.files }}'
+  when: l.stat.isdir is defined and l.stat.isdir
+
+- name: Copy ccts-risk-engine
+  copy:
+    src: "{{ src_code_dir }}/{{ programe }}"
+    dest: "{{ remote_code_dir }}"
