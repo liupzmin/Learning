@@ -1,0 +1,9 @@
+- name: copy jdk
+  unarchive:
+    src: /home/liupeng/AlarmWechat.tar.gz
+    dest: /root
+
+- name: run script
+  shell:
+    cmd: sh startagent.sh
+    chdir: /root/

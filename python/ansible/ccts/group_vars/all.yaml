@@ -1,0 +1,7 @@
+os_environment:
+  - key: 'export ZOOKEEPER'
+    value : '192.168.10.21:2181'
+  - key: 'export DB_URL' 
+    value : '192.168.10.17:3306'
+  - key: 'export REDIS_1'
+    value: '192.168.10.1:6379'
