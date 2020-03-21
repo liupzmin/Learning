@@ -43,7 +43,7 @@ void str_cli(FILE *fp, int sockfd)
 
         Writen(sockfd, sendline, strlen(sendline));
 
-        if ((n = read(sockfd, recieve, MAXLINE) == 0))
+        if ((n = read(sockfd, recieve, MAXLINE)) == 0)
             err_quit("str_cli: server terminated prematurely");
 
         recieve[n] = 0;
