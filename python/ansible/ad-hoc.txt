@@ -1,0 +1,31 @@
+ansible all -i hosts -m copy -a "src=/root/daemonize-1.7.7-1.el7.x86_64.rpm dest=/root/daemonize-1.7.7-1.el7.x86_64.rpm"
+ansible all -i hosts -m copy -a "src=/root/iperf3-3.1.3-1.fc24.x86_64.rpm dest=/root/iperf3-3.1.3-1.fc24.x86_64.rpm"
+
+ansible all -i hosts -m ping
+ansible all -i hosts -m shell -a "cat /root/bandtest2"
+ansible all -i hosts -m shell -a "cat /root/bandtest2" > 1
+ansible all -i hosts -m shell -a "cd /root && rpm -ivh iperf3-3.1.3-1.fc24.x86_64.rpm"
+ansible all -i hosts -m shell -a "daemonize -e /root/bandtest2 -o /root/bandtest2 iperf3 -c iperfserver -b 10000M -n 50G" -f 4
+ansible all -i hosts -m shell -a "daemonize -e /root/bandtest2 -o /root/bandtest2 /usr/bin/iperf3 -c iperfserver -b 10000M -n 50G" -f 4
+ansible all -i hosts -m shell -a "iperf3 -s -D"
+ansible all -i hosts -m shell -a "ll /root/bandtest2"
+ansible all -i hosts -m shell -a "ls -l /root/bandtest2"
+ansible all -i hosts -m shell -a "nslookup iperfserver"
+ansible all -i hosts -m shell -a "rpm -ivh /root/daemonize-1.7.7-1.el7.x86_64.rpm"
+ansible all -i hosts -m shell -a "ssh iperfserver date"
+ansible all -i hosts -m shell -a "yum -y install daemonize"
+
+ansible ccts-business-center -i hosts -u root -m shell -a "cd ccts-business-center/logs && gunzip risk_engine.log.2020-02-24.0.gz"
+ansible ccts-risk-engine -i hosts -u root -m shell -a "cd ccts-risk-engine/bin && chmod +x *.sh"
+ansible ccts-risk-engine -i hosts -u root -m shell -a "cd ccts-risk-engine/bin && ./restart.sh"
+ansible ccts-risk-engine -i hosts -u root -m shell -a "cd ccts-risk-engine/logs && gunzip risk_engine.log.2020-02-20.0.gz"
+
+ansible-playbook -i hosts deploy-assets-persistent.yaml
+ansible-playbook -i hosts deploy-data-center.yaml
+ansible-playbook -i hosts deploy-gateway.yaml
+ansible-playbook -i hosts deploy-match-engine.yaml
+ansible-playbook -i hosts deploy-qutation-calculate-unit.yaml
+ansible-playbook -i hosts deploy-qutation-gateway.yaml
+ansible-playbook -i hosts deploy-risk.yaml
+ansible-playbook -i hosts deploy-trader-persistent.yaml
+ansible-playbook resetEnv.yaml -i hosts
