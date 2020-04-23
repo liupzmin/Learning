@@ -123,7 +123,7 @@ func filterLoginRecieveData(message []byte) []byte {
 	buf.Write(splitKeyValue(message, `\b35=\d+\b`))
 	buf.Write(splitKeyValue(message, `\b1=\w+\b`))
 	buf.Write(splitKeyValue(message, `\b2=\w+\b`))
-	buf.Write(splitKeyValue(message, `\b5=.*?\|\|`))
+	buf.Write(bytes.TrimSuffix(splitKeyValue(message, `\b5=.*?\|\|`), []byte("||")))
 	buf.Write(splitKeyValue(message, `\b6=\w+\b`))
 	buf.Write(splitKeyValue(message, `\b8=(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b`))
 	buf.Write(bytes.Replace(findValue(message, `\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b:`), []byte(":"), []byte(""), 1))
