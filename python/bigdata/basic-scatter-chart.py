@@ -3,8 +3,8 @@ import db
 import pyecharts.options as opts
 from pyecharts.charts import Scatter
 
-dbconfig = {"host": "10.158.61.166", "port": 3306,
-            "user": "big", "password": "afis2020", "database": "bigdata"}
+dbconfig = {"host": "127.0.0.1", "port": 3306,
+            "user": "xxxxxxx", "password": "xxxxxx", "database": "bigdata"}
 
 mysql_pool = db.MySQLPool(**dbconfig)
 
