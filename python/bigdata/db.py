@@ -2,7 +2,7 @@ import mysql.connector.pooling
 import logging
 
 mysqllogger = logging.getLogger('mysql')
-handler = logging.FileHandler('logs/ape.log', encoding='UTF-8')
+handler = logging.FileHandler('/tmp/db.log', encoding='UTF-8')
 logging_format = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
 handler.setFormatter(logging_format)
