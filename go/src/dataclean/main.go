@@ -17,8 +17,8 @@ import (
 var (
 	loginInfoChan  = make(chan []byte, 1024)
 	verifyInfoChan = make(chan []byte, 1024)
-	brokers        = "10.158.61.170:9092,10.158.61.171:9092,10.158.61.90:9092,10.158.61.95:9092"
-	topics         = "auth"
+	brokers        = "10.158.61.170:9092,10.158.61.90:9092,10.158.61.95:9092"
+	topics         = "bauth"
 	group          = "go-consumer"
 )
 
