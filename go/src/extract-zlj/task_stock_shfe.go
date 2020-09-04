@@ -6,7 +6,7 @@ import (
 	"github.com/glory-cd/utils/log"
 )
 
-type StockLME struct {
+type StockSHFE struct {
 	ID         int    `json:"id"`
 	Exchange   string `json:"exchange"`
 	Goods      string `json:"goods"`
@@ -17,16 +17,16 @@ type StockLME struct {
 	Date       string `json:"date"`
 }
 
-var stockLMESQL = `select id, exchange, goods, weight,
+var stockSHFESQL = `select id, exchange, goods, weight,
 					inc_dec, unit, create_time, date 
-					from T_D_STOCK_LME where id > ? `
+					from T_D_STOCK_SHFE where id > ? `
 
-func extractStockLME(producer sarama.SyncProducer, db *sql.DB) {
+func extractStockSHFE(producer sarama.SyncProducer, db *sql.DB) {
 
-	topic := config.Topics.LME
+	topic := config.Topics.SHFE
 
 	checkPoint.RLock()
-	rows, err := db.Query(stockLMESQL, checkPoint.StockLME)
+	rows, err := db.Query(stockSHFESQL, checkPoint.StockSHFE)
 	checkPoint.RUnlock()
 
 	if err != nil {
@@ -36,12 +36,12 @@ func extractStockLME(producer sarama.SyncProducer, db *sql.DB) {
 	defer rows.Close()
 
 	var (
-		result []StockLME
+		result []StockSHFE
 		count  int
 		max    int
 	)
 	for rows.Next() {
-		var r StockLME
+		var r StockSHFE
 		err = rows.Scan(&r.ID, &r.Exchange, &r.Goods, &r.Weight, &r.IncDec, &r.Unit, &r.CreateTime, &r.Date)
 		if err != nil {
 			log.Slogger.Errorf("row scan error: %+v", err)
@@ -64,7 +64,7 @@ func extractStockLME(producer sarama.SyncProducer, db *sql.DB) {
 			}
 			count = 0
 			result = nil
-			syncIntPosition(&checkPoint.StockLME, &max)
+			syncIntPosition(&checkPoint.StockSHFE, &max)
 			log.Slogger.Infof("批量发送成功，数量为：%d, max:%d", config.BatchSize, max)
 		}
 	}
@@ -76,7 +76,7 @@ func extractStockLME(producer sarama.SyncProducer, db *sql.DB) {
 			return
 		}
 		if max != 0 {
-			syncIntPosition(&checkPoint.StockLME, &max)
+			syncIntPosition(&checkPoint.StockSHFE, &max)
 		}
 
 		log.Slogger.Infof("批量发送成功，  数量为：%d, max为：%d", count % config.BatchSize, max)

@@ -34,20 +34,17 @@ type LogConfig struct {
 }
 
 type TopicConfig struct {
-	LME     string `yaml:"lme"`
-	SHFE    string `yaml:"shfe"`
-	Content string `yaml:"content"`
+	WarehouseReceipt string `yaml:"warehousereceipt"`
 }
 
 type GlobalConfig struct {
-	Mysql            MysqlConfig   `yaml:"mysql"`
-	Log              LogConfig     `yaml:"log"`
-	PositionFile     string        `yaml:"positionFile"`
-	Brokers          string        `yaml:"brokers"`
-	BatchSize        int           `yaml:"batchsize"`
-	ContentBatchSize int           `yaml:"contentbatchsize"`
-	Topics           TopicConfig   `yaml:"topics"`
-	Interval         time.Duration `yaml:"interval"`
+	Mysql        MysqlConfig   `yaml:"mysql"`
+	Log          LogConfig     `yaml:"log"`
+	PositionFile string        `yaml:"positionFile"`
+	Brokers      string        `yaml:"brokers"`
+	BatchSize    int           `yaml:"batchsize"`
+	Topics       TopicConfig   `yaml:"topics"`
+	Interval     time.Duration `yaml:"interval"`
 }
 
 var (

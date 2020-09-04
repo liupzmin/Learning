@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	db       *sql.DB
-	done     = make(chan bool)
+	db *sql.DB
+	done = make(chan bool)
 	producer sarama.SyncProducer
 )
 
@@ -58,9 +58,8 @@ func main() {
 		case <-done:
 			return
 		case <-ticker.C:
-			go extractStockLME(producer, db)
-			go extractStockSHFE(producer, db)
-			go extractContent(producer, db)
+			go extractWarehouseReceipt(producer, db)
+
 		}
 	}
 

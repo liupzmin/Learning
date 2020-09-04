@@ -12,10 +12,9 @@ import (
 
 type position struct {
 	sync.RWMutex
-	StockLME  int `json:"StockLME"`
-	StockSHFE int `json:"StockSHFE"`
-	Content   int `json:"content"`
+	WarehouseReceipt int `json:"warehouse_receipt"`
 }
+
 
 func sendBatch(producer sarama.SyncProducer, batch interface{}, topic string) error {
 	msg, err := json.Marshal(batch)
@@ -85,7 +84,7 @@ func writeJSONToFile(file *os.File) error {
 	return nil
 }
 
-func syncIntPosition(k, v *int) {
+func syncIntPosition (k , v *int) {
 	checkPoint.Lock()
 	*k = *v
 	checkPoint.Unlock()
