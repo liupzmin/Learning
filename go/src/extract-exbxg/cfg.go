@@ -35,6 +35,7 @@ type LogConfig struct {
 
 type TopicConfig struct {
 	WarehouseReceipt string `yaml:"warehousereceipt"`
+	Breed            string `yaml:"breed"`
 }
 
 type GlobalConfig struct {

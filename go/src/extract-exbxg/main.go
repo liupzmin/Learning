@@ -59,7 +59,7 @@ func main() {
 			return
 		case <-ticker.C:
 			go extractWarehouseReceipt(producer, db)
-
+			go extractBreed(producer, db)
 		}
 	}
 

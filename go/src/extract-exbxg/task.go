@@ -13,8 +13,8 @@ import (
 type position struct {
 	sync.RWMutex
 	WarehouseReceipt int `json:"warehouse_receipt"`
+	Breed            int `json:"breed"`
 }
-
 
 func sendBatch(producer sarama.SyncProducer, batch interface{}, topic string) error {
 	msg, err := json.Marshal(batch)
@@ -84,7 +84,7 @@ func writeJSONToFile(file *os.File) error {
 	return nil
 }
 
-func syncIntPosition (k , v *int) {
+func syncIntPosition(k, v *int) {
 	checkPoint.Lock()
 	*k = *v
 	checkPoint.Unlock()
