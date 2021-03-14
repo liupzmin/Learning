@@ -80,7 +80,7 @@ type deleteReq struct {
 
 func login() error {
 	api := "/api/v1/manage/login"
-	url := address + api
+	url := userAddress + api
 
 	var result response
 	client := resty.New()
@@ -108,7 +108,7 @@ func login() error {
 
 func list(system string) error {
 	var api = "/api/v1/manage/permidentity/all"
-	url := address + api
+	url := userAddress + api
 
 	var result listResponse
 	client := resty.New()
@@ -158,7 +158,7 @@ func list(system string) error {
 
 func listDetail(system, name, count string) error {
 	var addAPI = "/api/v1/manage/permidentity/listdetail"
-	url := address + addAPI
+	url := userAddress + addAPI
 
 	var result listDetailResponse
 	client := resty.New()
@@ -232,7 +232,7 @@ func listDetail(system, name, count string) error {
 
 func create(system, name, data string) error {
 	api := "/api/v1/manage/permidentity"
-	url := address + api
+	url := userAddress + api
 
 	pis := make([]*permissionsInfo, 0)
 	apis := strings.Split(data, ",")
@@ -276,7 +276,7 @@ func create(system, name, data string) error {
 
 func update(gid, system, name, data string) error {
 	var api = "/api/v1/manage/permidentity"
-	url := address + api
+	url := userAddress + api
 
 	pis := make([]*permissionsInfo, 0)
 	apis := strings.Split(data, ",")
@@ -326,7 +326,7 @@ func update(gid, system, name, data string) error {
 
 func remove(gid, system string) error {
 	var api = "/api/v1/manage/permidentity"
-	url := address + api
+	url := userAddress + api
 
 	identity := deleteReq{
 		GID:      gid,
@@ -341,6 +341,45 @@ func remove(gid, system string) error {
 		SetResult(&result).
 		SetAuthToken(token).
 		Delete(url)
+
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode() != http.StatusOK {
+		return fmt.Errorf("HTTP Code：%d, err: %#v; API Code: %d, Msg: %s", resp.StatusCode(), resp.Error(), result.Code, result.Msg)
+	}
+
+	if result.Code != 0 {
+		return fmt.Errorf("API Code: %d, err: %s", result.Code, result.Msg)
+	}
+	return nil
+}
+
+type grantReq struct {
+	Role     string
+	Identity string
+	SystemID string
+}
+
+func accredit(role, identity, system string) error {
+	var api = "/api/v1/wechat/grant"
+	url := wechatAddress + api
+
+	grant := grantReq{
+		Role:     role,
+		Identity: identity,
+		SystemID: system,
+	}
+
+	var result response
+	client := resty.New()
+	resp, err := client.R().
+		SetHeader("Content-Type", "application/json").
+		SetBody(grant).
+		SetResult(&result).
+		SetAuthToken(token).
+		Put(url)
 
 	if err != nil {
 		return err

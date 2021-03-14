@@ -11,10 +11,11 @@ import (
 )
 
 var (
-	user    string
-	passwd  string
-	address string
-	token   string
+	user          string
+	passwd        string
+	userAddress   string
+	wechatAddress string
+	token         string
 )
 
 func main() {
@@ -39,6 +40,10 @@ func main() {
 
 		delete = app.Command("delete", "Delete an identity of the system.")
 		dgid   = delete.Flag("gid", "the gid of identity.").Short('g').Required().String()
+
+		grant = app.Command("grant", "edit an identity for certain system.")
+		role  = grant.Flag("role", "the role to be granted.").Short('r').Required().String()
+		iden  = grant.Arg("identity", "The identity contains the permissions.").Required().String()
 	)
 	app.Version("Version: 0.1")
 	cmd := kingpin.MustParse(app.Parse(os.Args[1:]))
@@ -71,6 +76,10 @@ func main() {
 		if err := update(*gid, *system, *ename, *permissions2); err != nil {
 			log.Fatal(err.Error())
 		}
+	case grant.FullCommand():
+		if err := accredit(*role, *iden, *system); err != nil {
+			log.Fatal(err.Error())
+		}
 	}
 }
 
@@ -87,5 +96,6 @@ func init() {
 
 	user = viper.GetString("api.username")
 	passwd = viper.GetString("api.password")
-	address = viper.GetString("api.address")
+	userAddress = viper.GetString("api.userAddress")
+	wechatAddress = viper.GetString("api.wechatAddress")
 }
