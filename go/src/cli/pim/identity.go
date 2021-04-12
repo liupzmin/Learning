@@ -194,17 +194,17 @@ func listDetail(system, name, count string) error {
 				v.SystemID,
 				v.GID,
 				v.Name,
-				carbon.CreateFromTimestamp(v.CreateTime).ToDateTimeString(),
-				carbon.CreateFromTimestamp(v.UpdateTime).ToDateTimeString(),
 				r.MenuURL,
 				r.Method,
+				carbon.CreateFromTimestamp(v.CreateTime).ToDateTimeString(),
+				carbon.CreateFromTimestamp(v.UpdateTime).ToDateTimeString(),
 			}
 			data = append(data, row)
 		}
 	}
 
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"SystemID", "GID", "Name", "CreateTime", "UpdateTime", "MenuURL", "Method"})
+	table.SetHeader([]string{"SystemID", "GID", "Name", "MenuURL", "Method", "CreateTime", "UpdateTime"})
 	table.SetAutoMergeCells(true)
 	table.SetRowLine(true)
 
@@ -219,10 +219,10 @@ func listDetail(system, name, count string) error {
 	table.SetColumnColor(tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiBlueColor},
 		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiBlueColor},
 		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiRedColor},
-		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiBlueColor},
-		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiBlueColor},
 		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiCyanColor},
-		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiGreenColor})
+		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiGreenColor},
+		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiBlueColor},
+		tablewriter.Colors{tablewriter.Bold, tablewriter.FgHiBlueColor})
 
 	table.AppendBulk(data)
 	table.Render()
@@ -238,9 +238,10 @@ func create(system, name, data string) error {
 	apis := strings.Split(data, ",")
 	for _, v := range apis {
 		pairs := strings.Split(v, ":")
+		le := len(pairs)
 		pi := &permissionsInfo{
-			MenuURL: pairs[0],
-			Method:  pairs[1],
+			MenuURL: strings.Join(pairs[:le-1], ":"),
+			Method:  pairs[le-1],
 		}
 		pis = append(pis, pi)
 	}
@@ -363,7 +364,7 @@ type grantReq struct {
 }
 
 func accredit(role, identity, system string) error {
-	var api = "/api/v1/wechat/grant"
+	var api = "/api/v1/wechatadmin/grant"
 	url := wechatAddress + api
 
 	grant := grantReq{
