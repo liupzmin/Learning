@@ -1,6 +1,6 @@
 # 关于reset
 
-## git add 撤销
+## 撤销暂存区（git add 撤销）
 
 这样的错误是由于， 有的时候 可能
 
@@ -13,6 +13,8 @@ git add 如果添加了错误的文件的话
 1. git status 先看一下add 中的文件
 2. `git reset HEAD` 如果后面什么都不跟的话 就是上一次add 里面的全部撤销了
 3. `git reset HEAD XXX/XXX/XXX.java` 就是对某个文件进行撤销了
+
+***reset head 意为将暂存区重新与head同步***
 
 ## 撤销最近一个commit（还没push）
 
@@ -52,3 +54,12 @@ HEAD^的意思是上一个版本，也可以写成HEAD~1
 ## 修改 commit 的 log 内容
 
 `git commit --amend`
+
+
+## 将工作区的文件恢复为与暂存区相同
+
+`git checkout -- <file>`
+
+执行之后，工作区的文件便恢复成与暂存区一样，用于丢弃上次暂存之后所做的修改
+
+***修改暂存区用reset，修改工作区用checkout***
