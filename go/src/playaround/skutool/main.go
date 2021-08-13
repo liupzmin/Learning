@@ -19,9 +19,9 @@ import (
 
 const (
 	GroupLink = "32ab8d57-d4f7-421d-8cbb-6eb3cd06c42a"
-	URLPrefix = "http://192.168.0.63:8888"
+	URLPrefix = "http://172.21.0.6:8888"
 	Path      = "/api/v1/dfs/upload/direct"
-	Address   = "192.168.0.63:15005"
+	Address   = "172.21.0.15:15005"
 )
 
 type Response struct {

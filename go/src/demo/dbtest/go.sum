@@ -1,2 +1,8 @@
+gitee.com/xslasd/go-map v0.0.0-20210602034621-270cf85e83e9 h1:RN160ViIiz4Fd9jUPW0fDG3HzDi46t7QoL1Zp1q0moQ=
+gitee.com/xslasd/go-map v0.0.0-20210602034621-270cf85e83e9/go.mod h1:CRowDxBJhyhPusdvU4omIimZJJz82Nq8CvV7YT8ODk4=
+gitee.com/xslasd/go-map v0.0.0-20210625035209-bd19f4bfa71b h1:P/STEpaZqYccDBCK93R/bRcOCYF8ei9aHmPbB/lj2t0=
+gitee.com/xslasd/go-map v0.0.0-20210625035209-bd19f4bfa71b/go.mod h1:CRowDxBJhyhPusdvU4omIimZJJz82Nq8CvV7YT8ODk4=
+gitee.com/xslasd/go-map v0.0.0-20210628061325-c680d61cd5af h1:xEDgtTjqQD1kFEcuw+98pJvRgH2We872z2l9Gu0EIlE=
+gitee.com/xslasd/go-map v0.0.0-20210628061325-c680d61cd5af/go.mod h1:CRowDxBJhyhPusdvU4omIimZJJz82Nq8CvV7YT8ODk4=
 github.com/go-sql-driver/mysql v1.6.0 h1:BCTh4TKNUYmOmMUcQ3IipzF5prigylS7XXjEkfCHuOE=
 github.com/go-sql-driver/mysql v1.6.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
