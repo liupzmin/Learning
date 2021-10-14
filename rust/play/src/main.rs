@@ -18,7 +18,7 @@ fn main() {
 
     let a = [5;3];
 
-    println!("out of range: {}", a[3]);
+    // println!("out of range: {}", a[3]);
 
     let s = "hello";
 
@@ -26,7 +26,16 @@ fn main() {
 
     let s3 = &s2[..];
 
+
+    let mut tmut = 3;
+    let tt = &mut tmut;
+
+    let tms = Tm(10);
+    test_tm(tms);
+
 }
+
+struct Tm (i32);
 
 fn read_username_from_file() -> Result<String, io::Error> {
     let f = File::open("hello.txt");
@@ -38,7 +47,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
     let mut s = String::new();
 
     match f.read_to_string(&mut s) {
-        Ok(_) => OK(s),
+        Ok(_) => Ok(s),
         Err(e) => Err(e),
     }
 }
@@ -71,4 +80,9 @@ fn test(){
     };
 
     println!("let's see a:{}, b:{}, c{},d:{:#?}, d.a:{}", a, b, c, d, d.a);
+}
+
+fn test_tm(mut a: Tm) {
+    a.0 = 10;
+    println!("{}",a.0)
 }
