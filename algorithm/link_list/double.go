@@ -68,7 +68,9 @@ func (l *List) InsertAfter(v interface{}, at *Element) *Element{
 
 func (l *List) Delete(e *Element) {
 	e.prev.next = e.next
-	e.next.prev = e.prev
+	if e != l.tail {
+		e.next.prev = e.prev
+	}
 	l.len--
 }
 
