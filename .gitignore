@@ -3,3 +3,4 @@
 *.i
 *.s
 a.out
+rust/*/target/*
