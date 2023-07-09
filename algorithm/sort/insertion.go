@@ -1,7 +1,7 @@
 package sort
 
 // insertionSort 就像摸扑克牌，手中的牌是已排序的，新牌将与手中的牌逐个比较
-// 时间复杂度 O(n²)
+// 平均时间复杂度 O(n²)，最好的情况是O(n)，最坏的情况是O(n²)
 // 空间复杂度 O(1) 原地排序
 // 稳定排序
 func insertionSort(s *[]int) {
