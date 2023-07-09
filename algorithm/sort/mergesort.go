@@ -2,6 +2,9 @@ package sort
 
 // MSort 归并排序，分成两部分，然后将排序后的两个集合合并，其实排序动作是靠合并来完成的，MSort只负责分集合，分到最小后交给merge排序
 // 分治思想
+// 平均时间复杂度 ，最好，最坏的情况都是O(nlogn)
+// 空间复杂度 O(n) 非原地排序
+// 稳定排序
 func MSort(s *[]int, left, right int) {
 	if left >= right {
 		return
