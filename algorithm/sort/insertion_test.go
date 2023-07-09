@@ -5,11 +5,9 @@ import (
 	"testing"
 )
 
-func TestMSort(t *testing.T) {
+func Test_insertionSort(t *testing.T) {
 	type args struct {
-		s     *[]int
-		left  int
-		right int
+		s *[]int
 	}
 	tests := []struct {
 		name string
@@ -21,8 +19,6 @@ func TestMSort(t *testing.T) {
 			"equal1",
 			args{
 				&[]int{4, 2, 1, 3},
-				0,
-				3,
 			},
 			[]int{1, 2, 3, 4},
 		},
@@ -30,8 +26,6 @@ func TestMSort(t *testing.T) {
 			"equal2",
 			args{
 				&[]int{43, 22, 11, 3},
-				0,
-				3,
 			},
 			[]int{3, 11, 22, 43},
 		},
@@ -39,8 +33,6 @@ func TestMSort(t *testing.T) {
 			"equal3",
 			args{
 				&[]int{2},
-				0,
-				0,
 			},
 			[]int{2},
 		},
@@ -48,8 +40,6 @@ func TestMSort(t *testing.T) {
 			"equal4",
 			args{
 				&[]int{43, 22},
-				0,
-				1,
 			},
 			[]int{22, 43},
 		},
@@ -57,17 +47,15 @@ func TestMSort(t *testing.T) {
 			"equal5",
 			args{
 				&[]int{43, 22, 11},
-				0,
-				2,
 			},
 			[]int{11, 22, 43},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			MSort(tt.args.s, tt.args.left, tt.args.right)
+			insertionSort(tt.args.s)
 			if !reflect.DeepEqual(*tt.args.s, tt.want) {
-				t.Errorf("MSort() = %v, want %v", *tt.args.s, tt.want)
+				t.Errorf("insertionSort() = %v, want %v", *tt.args.s, tt.want)
 			}
 		})
 	}
