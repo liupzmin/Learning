@@ -21,6 +21,9 @@ func heapSort(s *[]int) {
 	}
 }
 
+// buildMaxHeap 从最后一个父节点开始，沿每个节点而上，对每个节点进行下滤操作
+// 因为每个叶子节点可以默认为符合堆特性，所以可以调用 maxHeapify
+// maxHeapify 维护大顶堆的性质，函数的前提是假定根节点为left(i)和right(i) 的二叉树都是最大堆
 func buildMaxHeap(s *[]int) {
 	e := *s
 	length := len(e)
@@ -30,9 +33,9 @@ func buildMaxHeap(s *[]int) {
 	}
 }
 
-// maxHeapify 维护大顶堆的性质，函数的前提是假定根节点为left(i)和right(i)的二叉树都是最大堆
-// 也就是说，次函数是为删除堆顶元素并且在堆顶填充A[n-1]之后继续堆化的过程
-// 不过次函数还可以以自上向下堆化的方式来将一个现成的数组堆化，堆排序就是用这一点来建堆的
+// maxHeapify 维护大顶堆的性质，函数的前提是假定根节点为left(i)和right(i) 的二叉树都是最大堆
+// 也就是说，此函数是为删除堆顶元素并且在堆顶填充A[n-1]之后继续堆化的过程，或者称之为下滤
+// 要将一个现成的数组堆化，可以使用自下而上的方式依次调用此函数，堆排序就是用这一点来建堆的，如本例中的 buildMaxHeap
 // size 代表堆的大小 pos 是堆化的节点
 func maxHeapify(s *[]int, size, pos int) {
 	e := *s
@@ -47,11 +50,13 @@ func maxHeapify(s *[]int, size, pos int) {
 	if right <= size-1 && e[largest] < e[right] {
 		largest = right
 	}
-	if pos != largest {
-		// 交换节点，并递归对交换的节点堆化
-		e[pos], e[largest] = e[largest], e[pos]
-		maxHeapify(s, size, largest)
+
+	if pos == largest {
+		return
 	}
+	// 交换节点，并递归对交换的节点堆化
+	e[pos], e[largest] = e[largest], e[pos]
+	maxHeapify(s, size, largest)
 }
 
 func leftChild(p int) int {
