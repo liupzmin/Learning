@@ -105,9 +105,9 @@ func Test_quickSortInPlace(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			quickSortInPlace(tt.args.s, tt.args.left, tt.args.right)
+			QuickSortInPlace(tt.args.s, tt.args.left, tt.args.right)
 			if !reflect.DeepEqual(*tt.args.s, tt.want) {
-				t.Errorf("quickSortInPlace() = %v, want %v", *tt.args.s, tt.want)
+				t.Errorf("QuickSortInPlace() = %v, want %v", *tt.args.s, tt.want)
 			}
 		})
 	}

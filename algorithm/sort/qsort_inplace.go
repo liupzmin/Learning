@@ -25,11 +25,11 @@ func median3InPlace(s *[]int, left, right int) int {
 	return e[right-1]
 }
 
-// quickSortInPlace 快速排序
+// QuickSortInPlace 快速排序
 // 平均时间复杂度O(nlogn)，极端情况为 O(n²)
 // 空间复杂度 O(1) 原地排序
 // 不稳定排序
-func quickSortInPlace(s *[]int, left, right int) {
+func QuickSortInPlace(s *[]int, left, right int) {
 	e := *s
 
 	// 递归的终止条件
@@ -76,6 +76,6 @@ func quickSortInPlace(s *[]int, left, right int) {
 	e[i], e[right-1] = e[right-1], e[i]
 
 	// 递归
-	quickSortInPlace(s, left, i-1)
-	quickSortInPlace(s, i+1, right)
+	QuickSortInPlace(s, left, i-1)
+	QuickSortInPlace(s, i+1, right)
 }
